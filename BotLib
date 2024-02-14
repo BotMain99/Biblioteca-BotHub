@@ -1,0 +1,186 @@
+-- Cria uma tabela para o BotLib
+local BotLib = {}
+
+-- Cria uma função para criar uma janela
+local function windowns()
+  local windownsName = "BotHub"
+  local windownsKey = false --you true or false
+  local key = ""
+  local keyName = "Key system x Hub Bot"
+  local AddTab = true
+
+  -- Cria uma tela para a janela
+  local screen = Instance.new("ScreenGui")
+  screen.Parent = game.StarterGui
+  screen.Name = windownsName
+
+  -- Cria um quadro para a janela
+  local frame = Instance.new("Frame")
+  frame.Parent = screen
+  frame.Size = UDim2.new(0.4, 0, 0.6, 0)
+  frame.Position = UDim2.new(0.3, 0, 0.2, 0)
+  frame.BackgroundColor3 = Color3.new(0.5, 0.5, 0.5)
+
+  -- Cria um título para a janela
+  local title = Instance.new("TextLabel")
+  title.Parent = frame
+  title.Size = UDim2.new(1, 0, 0.1, 0)
+  title.Position = UDim2.new(0, 0, 0, 0)
+  title.Text = windownsName
+  title.TextColor3 = Color3.new(1, 1, 1)
+  title.BackgroundColor3 = Color3.new(0, 0, 0)
+
+  -- Cria um botão para fechar a janela
+  local closeButton = Instance.new("TextButton")
+  closeButton.Parent = title
+  closeButton.Size = UDim2.new(0.1, 0, 1, 0)
+  closeButton.Position = UDim2.new(0.9, 0, 0, 0)
+  closeButton.Text = "X"
+  closeButton.TextColor3 = Color3.new(1, 1, 1)
+  closeButton.BackgroundColor3 = Color3.new(1, 0, 0)
+
+  -- Define uma função para fechar a janela
+  local function closeWindowns()
+    screen:Destroy()
+  end
+
+  -- Conecta o evento do botão à função
+  closeButton.MouseButton1Click:Connect(closeWindowns)
+
+  -- Retorna a tela, o quadro e o título da janela
+  return screen, frame, title
+end
+
+-- Cria uma função para criar uma aba
+local function Tab()
+  local AddTabName = "TAB"
+  local only = false
+  local TabConfig = true
+
+  -- Cria um botão para a aba
+  local tabButton = Instance.new("TextButton")
+  tabButton.Parent = frame -- Usa o quadro da janela como pai
+  tabButton.Size = UDim2.new(0.2, 0, 0.1, 0)
+  tabButton.Position = UDim2.new(0.1, 0, 0.1, 0)
+  tabButton.Text = AddTabName
+  tabButton.TextColor3 = Color3.new(1, 1, 1)
+  tabButton.BackgroundColor3 = Color3.new(0, 0.5, 1)
+
+  -- Cria um quadro para o conteúdo da aba
+  local tabFrame = Instance.new("Frame")
+  tabFrame.Parent = frame -- Usa o quadro da janela como pai
+  tabFrame.Size = UDim2.new(0.8, 0, 0.8, 0)
+  tabFrame.Position = UDim2.new(0.1, 0, 0.2, 0)
+  tabFrame.BackgroundColor3 = Color3.new(0.8, 0.8, 0.8)
+  tabFrame.Visible = false -- Esconde o quadro por padrão
+
+  -- Define uma função para mostrar ou esconder o conteúdo da aba
+  local function toggleTab()
+    tabFrame.Visible = not tabFrame.Visible -- Inverte a visibilidade do quadro
+  end
+
+  -- Conecta o evento do botão à função
+  tabButton.MouseButton1Click:Connect(toggleTab)
+
+  -- Retorna o botão e o quadro da aba
+  return tabButton, tabFrame
+end
+
+-- Cria uma função para criar um toggle
+local function toggle()
+  local ToggleName = "Toggle"
+  local defaut = false
+  local callback = function(value)
+    --you script if from script
+  end
+
+  -- Cria um botão para o toggle
+  local toggleButton = Instance.new("TextButton")
+  toggleButton.Parent = tabFrame -- Usa o quadro da aba como pai
+  toggleButton.Size = UDim2.new(0.2, 0, 0.1, 0)
+  toggleButton.Position = UDim2.new(0.1, 0, 0.1, 0)
+  toggleButton.Text = ToggleName
+  toggleButton.TextColor3 = Color3.new(1, 1, 1)
+  toggleButton.BackgroundColor3 = Color3.new(0, 0.5, 1)
+
+  -- Cria uma variável para armazenar o estado do toggle
+  local toggleState = defaut
+
+  -- Define uma função para mudar o estado do toggle
+  local function changeToggle()
+    toggleState = not toggleState -- Inverte o estado do toggle
+    toggleButton.Text = ToggleName .. " (" .. tostring(toggleState) .. ")" -- Atualiza o texto do botão
+    callback(toggleState) -- Chama a função de retorno com o novo estado
+  end
+
+  -- Conecta o evento do botão à função
+  toggleButton.MouseButton1Click:Connect(changeToggle)
+
+  -- Retorna o botão do toggle
+  return toggleButton
+end
+
+-- Cria uma função para criar um botão
+local function Button()
+  local buttonName = "Button"
+  local callback = function(value)
+    --you script
+  end
+
+  -- Cria um botão
+  local button = Instance.new("TextButton")
+  button.Parent = tabFrame -- Usa o quadro da aba como pai
+  button.Size = UDim2.new(0.2, 0, 0.1, 0)
+  button.Position = UDim2.new(0.4, 0, 0.1, 0)
+  button.Text = buttonName
+  button.TextColor3 = Color3.new(1, 1, 1)
+  button.BackgroundColor3 = Color3.new(0, 0.5, 1)
+
+  -- Define uma função para lidar com o clique do botão
+  local function onButtonClick()
+    callback() -- Chama a função de retorno
+  end
+
+  -- Conecta o evento do botão à função
+  button.MouseButton1Click:Connect(onButtonClick)
+
+  -- Retorna o botão
+  return button
+end
+
+-- Cria uma função para criar uma notificação
+local function notification()
+  local notificationName = "notification"
+  local SubimitnotificationName = "Load Script!"
+
+  -- Cria uma notificação
+  local notification = Instance.new("TextLabel")
+  notification.Parent = tabFrame -- Usa o quadro da aba como pai
+  notification.Size = UDim2.new(0.4, 0, 0.2, 0)
+  notification.Position = UDim2.new(0.3, 0, 0.3, 0)
+  notification.Text = notificationName .. ": " .. SubimitnotificationName
+  notification.TextColor3 = Color3.new(1, 1, 1)
+  notification.BackgroundColor3 = Color3.new(1, 1, 0)
+  notification.Visible = false -- Esconde a notificação por padrão
+
+  -- Define uma função para mostrar a notificação
+  local function showNotification()
+    notification.Visible = true -- Mostra a notificação
+    wait(3) -- Espera 3 segundos
+    notification.Visible = false -- Esconde a notificação
+  end
+
+  -- Retorna a notificação e a função
+  return notification, showNotification
+end
+
+-- Adiciona o BotLib ao ambiente global
+_G.BotLib = BotLib
+
+-- Cria uma janela usando a função do BotLib
+local screen, frame, title = BotLib.windowns()
+
+-- Cria uma aba usando a função do BotLib
+local tabButton, tabFrame = BotLib.Tab()
+
+-- C
